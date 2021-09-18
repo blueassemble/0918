@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: blueassemble/0913:redis-ver1
+        name: redis
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/local/etc/redis/redis.conf
+          name: redis-conf
+          subPath: redis.conf             
+      volumes:
+        - name: redis-conf
+          configMap:
+              name: redis-conf      
+status: {}
